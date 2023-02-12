@@ -1,9 +1,3 @@
-#ignore everything
-*
-
-!web
-
-
 # Miscellaneous
 *.class
 *.log
