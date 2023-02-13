@@ -63,108 +63,112 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor:const Color(0xFF367033),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height:25.h,
-                width: 25.w,
-                child: Image.asset("lib/asset/Medlar.png")
-            ),
-             Text(
-              'A better way to connect People looking to get a project done with Service Providers.',
-              style: TextStyle(
-                fontSize: 7.sp
+        child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          reverse: true,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height:25.h,
+                  width: 25.w,
+                  child: Image.asset("lib/asset/Medlar.png")
               ),
-            ),
-            Padding(padding: EdgeInsets.only(bottom: 7.h)),
-            Text(
-            'Coming Soon!',
-            style: TextStyle(
-                fontSize: 15.sp
-              ),
-            ),
-            Padding(padding: EdgeInsets.only(bottom: 7.h)),
-            Text(
-              'For now, sign up for Medlar Newsletter to join our developmental progress.',
-              style: TextStyle(
+               Text(
+                'A better way to connect People looking to get a project done with Service Providers.',
+                style: TextStyle(
                   fontSize: 7.sp
+                ),
               ),
-            ),
-            Padding(padding: EdgeInsets.only(bottom:20.h)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  height:6.h,
-                  width: 40.w,
-                  child: Form(
-                    key: _formKey,
-                    child: TextFormField(
-                      cursorColor: Color(0xFFe6a90b),
-                      style: TextStyle(fontSize: 6.sp,
-                      color: Color(0xFFe6a90b)),
-                      autofillHints: const [AutofillHints.email],
-                      onChanged: (value){
-                          email = value;
-                      },
-                        validator: (value){
-                          if (value == null || value.isEmpty || !EmailValidator.validate(email)){
-                            return 'Please enter a va;od Email Address';
-                          }
-                          return null;
+              Padding(padding: EdgeInsets.only(bottom: 7.h)),
+              Text(
+              'Coming Soon!',
+              style: TextStyle(
+                  fontSize: 15.sp
+                ),
+              ),
+              Padding(padding: EdgeInsets.only(bottom: 7.h)),
+              Text(
+                'For now, sign up for Medlar Newsletter to join our developmental progress.',
+                style: TextStyle(
+                    fontSize: 7.sp
+                ),
+              ),
+              Padding(padding: EdgeInsets.only(bottom:20.h)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height:6.h,
+                    width: 40.w,
+                    child: Form(
+                      key: _formKey,
+                      child: TextFormField(
+                        cursorColor: Color(0xFFe6a90b),
+                        style: TextStyle(fontSize: 6.sp,
+                        color: Color(0xFFe6a90b)),
+                        autofillHints: [AutofillHints.email],
+                        onChanged: (value){
+                            email = value;
                         },
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.email,size: 8.sp,),
-                          prefixIconColor: Color(0xFFe6a90b),
-                          hintText: 'Please Enter Your Email',
-                          hintStyle: TextStyle(
-                              fontSize: 6.sp,
-                              color:Colors.black),
-                        contentPadding: EdgeInsets.all(2.5.h),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(1.h),
-                          borderSide: BorderSide(
-                            color: Color(0xFFe6a90b),
-                          )
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius:BorderRadius.circular(1.h),
-                          borderSide: BorderSide(
-                            color: Color(0xFFe6a90b),
+                          validator: (value){
+                            if (value == null || value.isEmpty || !EmailValidator.validate(email)){
+                              return 'Please enter a va;od Email Address';
+                            }
+                            return null;
+                          },
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.email,size: 8.sp,),
+                            prefixIconColor: Color(0xFFe6a90b),
+                            hintText: 'Please Enter Your Email',
+                            hintStyle: TextStyle(
+                                fontSize: 6.sp,
+                                color:Colors.black),
+                          contentPadding: EdgeInsets.all(2.5.h),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(1.h),
+                            borderSide: BorderSide(
+                              color: Color(0xFFe6a90b),
+                            )
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:BorderRadius.circular(1.h),
+                            borderSide: BorderSide(
+                              color: Color(0xFFe6a90b),
 
-                        )
-                        )
+                          )
+                          )
+                      ),
+                        controller: _textEditingController,
                     ),
-                      controller: _textEditingController,
+                    ),
                   ),
+                  Padding(padding: EdgeInsets.only(right: 2.w)),
+                  SizedBox(
+                    height:5.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFe6a90b)),
+                      onPressed: (){
+                        if (_formKey.currentState!.validate()){
+                        newsletter.add({
+                          'Email' : email,
+                        });
+                        }
+                        else{
+                          return;
+                        }
+                      },
+                      child: const Text("Sign Up",
+                      style: TextStyle(
+                        color: Colors.black
+                      ),),
+                    ),
                   ),
-                ),
-                Padding(padding: EdgeInsets.only(right: 2.w)),
-                SizedBox(
-                  height:5.h,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFe6a90b)),
-                    onPressed: (){
-                      if (_formKey.currentState!.validate()){
-                      newsletter.add({
-                        'Email' : email,
-                      });
-                      }
-                      else{
-                        return;
-                      }
-                    },
-                    child: const Text("Sign Up",
-                    style: TextStyle(
-                      color: Colors.black
-                    ),),
-                  ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
 
