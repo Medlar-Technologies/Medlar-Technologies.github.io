@@ -61,11 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
     CollectionReference newsletter = FirebaseFirestore.instance.collection('newsletter');
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor:const Color(0xFF367033),
       body: Center(
         child: SingleChildScrollView(
           physics: NeverScrollableScrollPhysics(),
-          reverse: true,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
