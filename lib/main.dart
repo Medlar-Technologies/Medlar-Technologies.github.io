@@ -96,30 +96,49 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height:5.h,
-                  width: 30.w,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 1.h),
-                    child: Form(
-                      key: _formKey,
-                      child: TextFormField(
-                        autofillHints: const [AutofillHints.email],
-                        onChanged: (value){
-                            email = value;
+                  height:6.h,
+                  width: 40.w,
+                  child: Form(
+                    key: _formKey,
+                    child: TextFormField(
+                      cursorColor: Color(0xFFe6a90b),
+                      style: TextStyle(fontSize: 6.sp,
+                      color: Color(0xFFe6a90b)),
+                      autofillHints: const [AutofillHints.email],
+                      onChanged: (value){
+                          email = value;
+                      },
+                        validator: (value){
+                          if (value == null || value.isEmpty || !EmailValidator.validate(email)){
+                            return 'Please enter a va;od Email Address';
+                          }
+                          return null;
                         },
-                          validator: (value){
-                            if (value == null || value.isEmpty || !EmailValidator.validate(email)){
-                              return 'Please enter a va;od Email Address';
-                            }
-                            return null;
-                          },
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.email,size: 8.sp,),
+                          prefixIconColor: Color(0xFFe6a90b),
                           hintText: 'Please Enter Your Email',
-                      ),
-                        controller: _textEditingController,
-                  ),
+                          hintStyle: TextStyle(
+                              fontSize: 6.sp,
+                              color:Colors.black),
+                        contentPadding: EdgeInsets.all(2.5.h),
+                        isDense: true,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(1.h),
+                          borderSide: BorderSide(
+                            color: Color(0xFFe6a90b),
+                          )
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius:BorderRadius.circular(1.h),
+                          borderSide: BorderSide(
+                            color: Color(0xFFe6a90b),
+
+                        )
+                        )
                     ),
+                      controller: _textEditingController,
+                  ),
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(right: 2.w)),
