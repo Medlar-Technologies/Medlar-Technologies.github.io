@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                           validator: (value){
                             if (value == null || value.isEmpty || !EmailValidator.validate(email)){
-                              return 'Please enter a va;od Email Address';
+                              return 'Please enter a valid Email Address';
                             }
                             return null;
                           },
