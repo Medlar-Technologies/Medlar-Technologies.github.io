@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor:const Color(0xFF367033),
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
@@ -207,7 +207,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   Padding(padding: EdgeInsets.only(right: 2.w)),
-                  _signUpButton()
+                  _signUpButton(),
+                Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom))
                 ],
               ),
             ],
