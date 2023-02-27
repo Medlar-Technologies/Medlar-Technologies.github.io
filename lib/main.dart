@@ -3,6 +3,7 @@ import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
+import 'show_snack_bar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
     CollectionReference newsletter = FirebaseFirestore.instance.collection('newsletter');
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor:const Color(0xFF367033),
       body: Center(
         child: SingleChildScrollView(
@@ -89,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Padding(padding: EdgeInsets.only(bottom: 7.h)),
               Text(
-                'For now, sign up for Medlar Newsletter to join our developmental progress.',
+                'Sign up today If you want to be the first to use it',
                 style: TextStyle(
                     fontSize: 7.sp
                 ),
@@ -150,13 +151,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFe6a90b)),
                       onPressed: (){
-                        if (_formKey.currentState!.validate()){
-                        newsletter.add({
-                          'Email' : email,
-                        });
-                        }
-                        else{
-                          return;
+                        final isKeyValidate = _formKey.currentState!.validate();
+                        try{
+                          isKeyValidate;
+                          if (isKeyValidate == true){
+                           newsletter.add({
+                              "Email" : email,
+                            });
+                           showSnackBar(context,"Email Was successfully added to the List");
+                          } else {
+                            null;
+                          }
+                          }
+                        on Exception catch (e){
+                          showSnackBar(context, e.toString());
                         }
                       },
                       child: const Text("Sign Up",
