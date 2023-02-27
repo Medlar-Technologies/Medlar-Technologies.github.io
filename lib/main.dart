@@ -48,25 +48,84 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  CollectionReference newsletter = FirebaseFirestore.instance.collection('newsletter');
+
   late final TextEditingController _textEditingController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
   var email ='';
+
   @override
   void dispose() {
     _textEditingController.dispose();
     super.dispose();
   }
+
+
+  late bool _isButtonDisabled;
+
+  @override
+  void initState() {
+    _isButtonDisabled = false;
+  }
+  void _disableButton() {
+    setState(() {
+      _isButtonDisabled = true;
+
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
-    CollectionReference newsletter = FirebaseFirestore.instance.collection('newsletter');
+    signUpButtonPress(){
+      if(_isButtonDisabled){
+       final isKeyValidate = _formKey.currentState!.validate();
+        try{
+          isKeyValidate;
+          if (isKeyValidate == true){
+            newsletter.add({
+              "Email" : email,
+            });
+            WidgetsBinding.instance.addPostFrameCallback((_) => showSnackBar(context,"Email Was successfully added to the List"));
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
+          } else {
+            return null;
+          }
+        }
+        on Exception catch (e){
+          showSnackBar(context, e.toString());
+        }
+      }else {
+        return ()
+      {
+        _disableButton();
+      };
+      }
+    }
+
+  Widget _signUpButton(){
+      return SizedBox(
+        height:5.h,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: _isButtonDisabled ? Colors.grey:  Color(0xFFe6a90b)),
+          onPressed: signUpButtonPress(),
+          child: Text( _isButtonDisabled ? "Thank You For Signing Up!" : "Sign up",
+            style: TextStyle(
+                color: Colors.black
+            ),),
+        ),
+      );
+  }
+
+  return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor:const Color(0xFF367033),
-      body: Center(
-        child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -90,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Padding(padding: EdgeInsets.only(bottom: 7.h)),
               Text(
-                'Sign up today If you want to be the first to use it',
+                'Sign Up Today If You Want To Be The First To Use It',
                 style: TextStyle(
                     fontSize: 7.sp
                 ),
@@ -146,33 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   Padding(padding: EdgeInsets.only(right: 2.w)),
-                  SizedBox(
-                    height:5.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFe6a90b)),
-                      onPressed: (){
-                        final isKeyValidate = _formKey.currentState!.validate();
-                        try{
-                          isKeyValidate;
-                          if (isKeyValidate == true){
-                           newsletter.add({
-                              "Email" : email,
-                            });
-                           showSnackBar(context,"Email Was successfully added to the List");
-                          } else {
-                            null;
-                          }
-                          }
-                        on Exception catch (e){
-                          showSnackBar(context, e.toString());
-                        }
-                      },
-                      child: const Text("Sign Up",
-                      style: TextStyle(
-                        color: Colors.black
-                      ),),
-                    ),
-                  ),
+                  _signUpButton()
                 ],
               ),
             ],
