@@ -125,7 +125,9 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor:const Color(0xFF367033),
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
-        child: Center(
+        child: Container(
+          height: 100.h,
+          width: 100.w,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
