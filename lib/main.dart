@@ -48,6 +48,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+
+
   CollectionReference newsletter = FirebaseFirestore.instance.collection('newsletter');
 
   late final TextEditingController _textEditingController = TextEditingController();
@@ -131,11 +133,17 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(
-                height:25.h,
+              SizerUtil.deviceType == DeviceType.mobile
+                 ? SizedBox(   // Widget for Mobile
+                 width: 45.w,
+                   height: 45.h,
+                  child: Image.asset("lib/asset/Medlar.png"),
+                )
+                : SizedBox(   // Widget for Tablet
                   width: 25.w,
-                  child: Image.asset("lib/asset/Medlar.png")
-              ),
+                height: 25.h,
+                child: Image.asset("lib/asset/Medlar.png"),
+                ),
                Text(
                 'A better way to connect People looking to get a project done with Service Providers.',
                 style: TextStyle(
