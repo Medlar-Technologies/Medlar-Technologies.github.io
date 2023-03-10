@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Image.asset("lib/asset/Medlar.png"),
               ),
              Text(
-              'A Better Way to Connect People Looking to Get a Project Done with Service Providers.',
+              'A Better Way to Connect People Who are Looking to Get a Project Done with Service Providers.',
               style: TextStyle(
                 fontSize: 14.sp
               ),
