@@ -85,7 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _signUpButton(){
     return SizedBox(
       height:5.h,
-      width: _isButtonDisabled? 10.w : 7.w,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(backgroundColor: _isButtonDisabled ?  Colors.grey :  Color(0xFFe6a90b)),
         onPressed: (){
@@ -183,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             hintText: 'Please Enter Your Email',
                             hintStyle: TextStyle(
                                 fontSize:8.sp,
-                                color:Colors.black),
+                                color:Colors.grey.withOpacity(0.7)),
                           isDense: false,
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(1.h),
