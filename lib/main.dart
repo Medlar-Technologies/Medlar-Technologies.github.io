@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,6 +27,9 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (BuildContext context, Orientation orientation, DeviceType deviceType) {
         return MaterialApp(
+          scrollBehavior: MaterialScrollBehavior().copyWith(
+            dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch, PointerDeviceKind.stylus, PointerDeviceKind.unknown},
+          ),
           debugShowCheckedModeBanner: false,
           title: 'Medlar',
           theme: ThemeData(
@@ -68,114 +73,98 @@ class _MyHomePageState extends State<MyHomePage> {
   late bool _isButtonDisabled;
 
   @override
-  void initState() {
+   initState() {
     _isButtonDisabled = false;
   }
-  void _disableButton() {
+   _disableButton() {
     setState(() {
       _isButtonDisabled = true;
 
     });
   }
-
-
-  @override
-  Widget build(BuildContext context) {
-
-    signUpButtonPress(){
-      if(_isButtonDisabled){
-       final isKeyValidate = _formKey.currentState!.validate();
-        try{
-          isKeyValidate;
-          if (isKeyValidate == true){
+  Widget _signUpButton(){
+    return SizedBox(
+      height:5.h,
+      width: _isButtonDisabled? 10.w : 7.w,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(backgroundColor: _isButtonDisabled ?  Colors.grey :  Color(0xFFe6a90b)),
+        onPressed: (){
+          if (_formKey.currentState!.validate() == true){
             newsletter.add({
               "Email" : email,
             });
             WidgetsBinding.instance.addPostFrameCallback((_) => showSnackBar(context,"Email Was successfully added to the List"));
-
+            _disableButton();
           } else {
             return null;
           }
-        }
-        on Exception catch (e){
-          showSnackBar(context, e.toString());
-        }
-      }else {
-        return ()
-      {
-        _disableButton();
-      };
-      }
-    }
-
-  Widget _signUpButton(){
-      return SizedBox(
-        height:5.h,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: _isButtonDisabled ? Colors.grey:  Color(0xFFe6a90b)),
-          onPressed: signUpButtonPress(),
-          child: Text( _isButtonDisabled ? "Thank You For Signing Up!" : "Sign up",
-            style: TextStyle(
-                color: Colors.black
-            ),),
+        },
+        child: Text( _isButtonDisabled ? "Thank You For Signing Up!" :"Sign up",
+          style: TextStyle(
+              color: Colors.black
+          ),
+          textAlign: TextAlign.center,
         ),
-      );
+      ),
+    );
   }
 
+  @override
+  Widget build(BuildContext context) {
+
   return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor:const Color(0xFF367033),
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Container(
-          height: 100.h,
-          width: 100.w,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizerUtil.deviceType == DeviceType.mobile
-                 ? SizedBox(   // Widget for Mobile
-                 width: 45.w,
-                   height: 45.h,
-                  child: Image.asset("lib/asset/Medlar.png"),
-                )
-                : SizedBox(   // Widget for Tablet
-                  width: 25.w,
-                height: 25.h,
-                child: Image.asset("lib/asset/Medlar.png"),
-                ),
-               Text(
-                'A better way to connect People looking to get a project done with Service Providers.',
-                style: TextStyle(
-                  fontSize: 7.sp
-                ),
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(   // Widget for not mobile
+                width: 40.w,
+              height: 40.h,
+              child: Image.asset("lib/asset/Medlar.png"),
               ),
-              Padding(padding: EdgeInsets.only(bottom: 7.h)),
-              Text(
-              'Coming Soon!',
+             Text(
+              'A Better Way to Connect People Looking to Get a Project Done with Service Providers.',
               style: TextStyle(
-                  fontSize: 15.sp
-                ),
+                fontSize: 14.sp
               ),
-              Padding(padding: EdgeInsets.only(bottom: 7.h)),
-              Text(
-                'Sign Up Today If You Want To Be The First To Use It',
-                style: TextStyle(
-                    fontSize: 7.sp
-                ),
+               textAlign: TextAlign.center,
+            ),
+            Padding(padding: EdgeInsets.only(bottom:15.h)),
+            Text(
+            'Coming Soon!',
+            style: TextStyle(
+                fontSize: 24.sp
               ),
-              Padding(padding: EdgeInsets.only(bottom:20.h)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height:6.h,
-                    width: 40.w,
+              textAlign: TextAlign.center,
+            ),
+            Padding(padding: EdgeInsets.only(bottom: 15.h)),
+            Text(
+              'Sign Up Today If You Want To Be The First To Use It',
+              style: TextStyle(
+                  fontSize: 14.sp
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Padding(padding: EdgeInsets.only(bottom:10.h)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height:15.h,
+                  width: 55.w,
+                  child: Center(
                     child: Form(
                       key: _formKey,
                       child: TextFormField(
+                        textAlign: TextAlign.start,
+                        textAlignVertical: TextAlignVertical.center,
                         cursorColor: Color(0xFFe6a90b),
-                        style: TextStyle(fontSize: 6.sp,
+                        style: TextStyle(fontSize: 15.sp,
                         color: Color(0xFFe6a90b)),
                         autofillHints: [AutofillHints.email],
                         onChanged: (value){
@@ -188,14 +177,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             return null;
                           },
                         decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.email,size: 8.sp,),
+                          contentPadding: EdgeInsets.symmetric(vertical: 2.h),
+                            prefixIcon: Icon(Icons.email,size: 10.sp,),
                             prefixIconColor: Color(0xFFe6a90b),
                             hintText: 'Please Enter Your Email',
                             hintStyle: TextStyle(
-                                fontSize: 6.sp,
-                                color:Colors.black),
-                          contentPadding: EdgeInsets.all(2.5.h),
-                          isDense: true,
+                                fontSize:8.sp,
+                                color:Colors.grey),
+                          isDense: false,
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(1.h),
                             borderSide: BorderSide(
@@ -206,23 +195,32 @@ class _MyHomePageState extends State<MyHomePage> {
                             borderRadius:BorderRadius.circular(1.h),
                             borderSide: BorderSide(
                               color: Color(0xFFe6a90b),
-
                           )
-                          )
+                          ),
+                          errorBorder:OutlineInputBorder(
+                              borderRadius:BorderRadius.circular(1.h),
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                              )
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                              borderRadius:BorderRadius.circular(1.h),
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                              )
+                          ),
                       ),
                         controller: _textEditingController,
                     ),
                     ),
                   ),
-                  Padding(padding: EdgeInsets.only(right: 2.w)),
-                  _signUpButton(),
-                Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom))
-                ],
-              ),
-            ],
-          ),
+                ),
+                Padding(padding: EdgeInsets.only(right: 2.w)),
+                _signUpButton(),
+              ],
+            ),
+            Padding(padding: EdgeInsets.only(top: 10.h)),
+          ],
         ),
       ),
 
