@@ -71110,7 +71110,7 @@ p=this.w?"Thank You For Signing Up!":"Sign up"
 return A.ff(new A.F_(new A.ad1(this),r,r,r,s,B.F,r,!1,r,A.hA(p,r,r,r,A.dI(r,r,B.n,r,r,r,r,r,r,r,r,r,r,r,r,r,r,!0,r,r,r,r,r,r,r,r),B.cm,r),r),5*q/100,r)},
 L(a){var s,r,q,p,o,n,m,l,k,j,i,h,g,f=this,e=null,d=4293306635,c=$.jN.ag(),b=$.fP.ag()
 c=A.ff(new A.v7(A.axR(e,e,new A.ts("lib/asset/Medlar.png",e,e)),e),40*b/100,40*c/100)
-b=A.hA("A Better Way to Connect People Looking to Get a Project Done with Service Providers.",e,e,e,A.dI(e,e,e,e,e,e,e,e,e,e,e,14*($.jN.ag()/3)/100,e,e,e,e,e,!0,e,e,e,e,e,e,e,e),B.cm,e)
+b=A.hA("A Better Way to Connect People Who are Looking to Get a Project Done with Service Providers.",e,e,e,A.dI(e,e,e,e,e,e,e,e,e,e,e,14*($.jN.ag()/3)/100,e,e,e,e,e,!0,e,e,e,e,e,e,e,e),B.cm,e)
 s=$.fP.ag()
 r=A.hA("Coming Soon!",e,e,e,A.dI(e,e,e,e,e,e,e,e,e,e,e,24*($.jN.ag()/3)/100,e,e,e,e,e,!0,e,e,e,e,e,e,e,e),B.cm,e)
 q=$.fP.ag()
