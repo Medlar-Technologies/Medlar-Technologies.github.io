@@ -183,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             hintText: 'Please Enter Your Email',
                             hintStyle: TextStyle(
                                 fontSize:8.sp,
-                                color:Colors.grey),
+                                color:Colors.black),
                           isDense: false,
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(1.h),
@@ -197,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Color(0xFFe6a90b),
                           )
                           ),
-                          errorBorder:OutlineInputBorder(
+                          errorBorder: OutlineInputBorder(
                               borderRadius:BorderRadius.circular(1.h),
                               borderSide: BorderSide(
                                 color: Colors.red,
